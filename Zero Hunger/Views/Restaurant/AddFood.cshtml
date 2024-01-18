@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "AddFood";
+}
+
+<main class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="card p-4">
+        <h2 class="text-center mb-4">Add Food</h2>
+        <form action="" method="post" class="mb-4">
+            <div class="mb-3">
+                <label for="F_name" class="form-label">Food Name</label>
+                <input type="text" name="F_name" placeholder="Name" value="@(Model?.Name ?? "")" class="form-control" />
+                <span class="text-danger">@Html.ValidationMessage("Name")</span>
+            </div>
+            <div class="mb-3">
+                <label for="F_quantity" class="form-label">Quantity</label>
+                <div class="input-group">
+                    <input type="number" name="F_quantity" id="F_quantity" value="@(Model?.F_quantity ?? 0)" class="form-control" />
+                   
+                </div>
+                <span class="text-danger">@Html.ValidationMessage("Quantity")</span>
+            </div>
+            <div class="mb-3">
+                <label for="ExpireDate" class="form-label">Expire Date</label>
+                <input type="date" name="ExpireDate" class="form-control" value="@(Model == null ? "" : Model.ExpireDate.ToString("yyyy-MM-dd"))">
+                <span class="text-danger">@Html.ValidationMessage("Expire_Date")</span>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Add" class="btn btn-success" />
+                <a href="/Restaurant/RestrurentDashBoard" class="btn btn-success">Back</a>
+            </div>
+        </form>
+    </div>
+
+   
+</main>

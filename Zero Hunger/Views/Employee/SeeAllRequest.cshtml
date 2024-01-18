@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "SeeAllRequest";
+}
+
+
+<h2 class="text-center">SEE ALL THE FOOD ADDED BY RESTAURANT</h2>
+<br>
+<form method="post" action="">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            @if (Model != null)
+            {
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Expire Date</th>
+                        <th scope="col">Restaurant Name</th>
+                        <th scope="col">Restaurant Address</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var food in Model)
+                    {
+                        <tr>
+                            <th scope="row">@food.F_id</th>
+                            <td>@food.F_name</td>
+                            <td>@food.F_quantity</td>
+                            <td>@food.ExpireDate</td>
+                            @foreach (var r in ViewBag.restrurent)
+                            {
+                                if (r.R_id == food.R_id)
+                                {
+                                    <td>@r.R_name</td>
+                                    <td>@r.R_address</td>
+                                }
+                            }
+
+                            <td>
+                                @if (food.Status == "Pending")
+                                {
+                                    <a class="btn btn-danger" href="/Restaurant/CancelRequestByEmployee/@food.F_id">Cancel</a>
+                                    <a class="btn btn-success" href="/Employee/AcceptRequestByEmployee/@food.F_id">Accept</a>
+                                }
+                                else
+                                {
+                                    @food.Status
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</form>
+
+

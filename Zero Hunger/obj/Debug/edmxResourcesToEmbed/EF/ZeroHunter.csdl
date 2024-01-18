@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZeroHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EmployeeFood">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="E_id" Type="Int32" />
+    <Property Name="F_id" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeFood_Employees" FromRole="EmployeeFood" ToRole="Employees" />
+    <NavigationProperty Name="Food" Relationship="Self.FK_EmployeeFood_Foods" FromRole="EmployeeFood" ToRole="Foods" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="E_id" />
+    </Key>
+    <Property Name="E_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="E_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="E_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="E_gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="E_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EmployeeFoods" Relationship="Self.FK_EmployeeFood_Employees" FromRole="Employees" ToRole="EmployeeFood" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="F_id" />
+    </Key>
+    <Property Name="F_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="F_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_quantity" Type="Int32" />
+    <Property Name="R_id" Type="Int32" />
+    <Property Name="ExpireDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EmployeeFoods" Relationship="Self.FK_EmployeeFood_Foods" FromRole="Foods" ToRole="EmployeeFood" />
+    <NavigationProperty Name="Restaurnt" Relationship="Self.FK_Foods_Foods" FromRole="Foods" ToRole="Restaurnts" />
+  </EntityType>
+  <EntityType Name="Restaurnt">
+    <Key>
+      <PropertyRef Name="R_id" />
+    </Key>
+    <Property Name="R_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="R_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="R_ownername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="R_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Foods" Relationship="Self.FK_Foods_Foods" FromRole="Restaurnts" ToRole="Foods" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="U_id" />
+    </Key>
+    <Property Name="U_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_EmployeeFood_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="EmployeeFood" Type="Self.EmployeeFood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="E_id" />
+      </Principal>
+      <Dependent Role="EmployeeFood">
+        <PropertyRef Name="E_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeFood_Foods">
+    <End Role="Foods" Type="Self.Food" Multiplicity="0..1" />
+    <End Role="EmployeeFood" Type="Self.EmployeeFood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Foods">
+        <PropertyRef Name="F_id" />
+      </Principal>
+      <Dependent Role="EmployeeFood">
+        <PropertyRef Name="F_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Foods_Foods">
+    <End Role="Restaurnts" Type="Self.Restaurnt" Multiplicity="0..1" />
+    <End Role="Foods" Type="Self.Food" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurnts">
+        <PropertyRef Name="R_id" />
+      </Principal>
+      <Dependent Role="Foods">
+        <PropertyRef Name="R_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZeroHungerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EmployeeFoods" EntityType="Self.EmployeeFood" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Foods" EntityType="Self.Food" />
+    <EntitySet Name="Restaurnts" EntityType="Self.Restaurnt" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_EmployeeFood_Employees" Association="Self.FK_EmployeeFood_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="EmployeeFood" EntitySet="EmployeeFoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeFood_Foods" Association="Self.FK_EmployeeFood_Foods">
+      <End Role="Foods" EntitySet="Foods" />
+      <End Role="EmployeeFood" EntitySet="EmployeeFoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Foods_Foods" Association="Self.FK_Foods_Foods">
+      <End Role="Restaurnts" EntitySet="Restaurnts" />
+      <End Role="Foods" EntitySet="Foods" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZeroHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EmployeeFood">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="E_id" Type="int" />
+    <Property Name="F_id" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="E_id" />
+    </Key>
+    <Property Name="E_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="E_name" Type="varchar" MaxLength="50" />
+    <Property Name="E_address" Type="varchar" MaxLength="50" />
+    <Property Name="E_gender" Type="varchar" MaxLength="50" />
+    <Property Name="E_phone" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Foods">
+    <Key>
+      <PropertyRef Name="F_id" />
+    </Key>
+    <Property Name="F_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="F_name" Type="varchar" MaxLength="50" />
+    <Property Name="F_quantity" Type="int" />
+    <Property Name="R_id" Type="int" />
+    <Property Name="ExpireDate" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Restaurnts">
+    <Key>
+      <PropertyRef Name="R_id" />
+    </Key>
+    <Property Name="R_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="R_name" Type="varchar" MaxLength="50" />
+    <Property Name="R_ownername" Type="varchar" MaxLength="50" />
+    <Property Name="R_address" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="U_id" />
+    </Key>
+    <Property Name="U_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_EmployeeFood_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="EmployeeFood" Type="Self.EmployeeFood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="E_id" />
+      </Principal>
+      <Dependent Role="EmployeeFood">
+        <PropertyRef Name="E_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeFood_Foods">
+    <End Role="Foods" Type="Self.Foods" Multiplicity="0..1" />
+    <End Role="EmployeeFood" Type="Self.EmployeeFood" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Foods">
+        <PropertyRef Name="F_id" />
+      </Principal>
+      <Dependent Role="EmployeeFood">
+        <PropertyRef Name="F_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Foods_Foods">
+    <End Role="Restaurnts" Type="Self.Restaurnts" Multiplicity="0..1" />
+    <End Role="Foods" Type="Self.Foods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurnts">
+        <PropertyRef Name="R_id" />
+      </Principal>
+      <Dependent Role="Foods">
+        <PropertyRef Name="R_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZeroHungerModelStoreContainer">
+    <EntitySet Name="EmployeeFood" EntityType="Self.EmployeeFood" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Foods" EntityType="Self.Foods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Restaurnts" EntityType="Self.Restaurnts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_EmployeeFood_Employees" Association="Self.FK_EmployeeFood_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="EmployeeFood" EntitySet="EmployeeFood" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeFood_Foods" Association="Self.FK_EmployeeFood_Foods">
+      <End Role="Foods" EntitySet="Foods" />
+      <End Role="EmployeeFood" EntitySet="EmployeeFood" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Foods_Foods" Association="Self.FK_Foods_Foods">
+      <End Role="Restaurnts" EntitySet="Restaurnts" />
+      <End Role="Foods" EntitySet="Foods" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

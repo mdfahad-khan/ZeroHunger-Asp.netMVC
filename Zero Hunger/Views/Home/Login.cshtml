@@ -1,0 +1,42 @@
+﻿@model Zero_Hunger.DTOs.LoginDTO
+@{
+    ViewBag.Title = "Login";
+
+}
+<main>
+
+    <form action="" method="post" class="mt-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body " style="background-color: #f0f0f0;">
+                            <h2 class="card-title text-center mb-4">Login</h2>
+
+                            <div class="mb-3">
+                                <label for="Name" class="form-label">Name</label>
+                                <input type="text" name="Name" placeholder="Name" value="@(Model==null ? "":Model.Name)" class="form-control" />
+                                <span class="text-danger">@Html.ValidationMessage("Name")</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Password" class="form-label">Password</label>
+                                <input type="password" name="Password" placeholder="Password" value="@(Model==null ? "":Model.Password)" class="form-control" />
+                                <span class="text-danger">@Html.ValidationMessage("Password")</span>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </form>
+    <h6 class="text-center mt-3">Don't have an account? <a href="/Home/Registration">Registration</a></h6>
+
+
+
+
+</main>

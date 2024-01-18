@@ -1,0 +1,57 @@
+﻿@model Zero_Hunger.EF.Employee
+
+@{
+    ViewBag.Title = "EditEmployee";
+}
+
+<h2>Edit Employee</h2>
+
+
+<form action="" method="post">
+
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <tr>
+                <th>Name</th>
+                <td>
+                    <input type="text" name="E_name" placeholder="Name" value="@Model.E_name"><br />
+                    <input type="hidden" name="E_id" value="@Model.E_id">
+                </td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>
+                    <input type="text" name="E_gender" placeholder="Gender" value="@Model.E_gender"><br />
+                </td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>
+                    <input type="text" name="E_address" placeholder="Address" value="@Model.E_address"><br />
+                </td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>
+
+                    <input type="text" name="E_phone" placeholder="Qantity" value="@Model.E_phone"><br />
+                </td>
+            </tr>
+            <tr>
+                <td> <input type="submit" class="btn btn-success" value="Save"></td>
+                <td><a class="btn btn-success" href="/Admin/AdminDashBoard">Back</a></td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</form>
+
+
+
+    

@@ -1,0 +1,68 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "CheckRequestInfo";
+}
+
+<h2 class="text-center">ALL FOOD LIST ADDED BY RESTAURANT</h2>
+<form method="post" action="">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            @if (Model != null)
+            {
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col">Food Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Expire Date</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var food in ViewBag.food)
+                    {
+                        <tr>
+                            <td>@food.F_id</td>
+                            <td>@food.F_name</td>
+                            <td>@food.F_quantity</td>
+                            <td>@food.ExpireDate</td>
+                            <td>
+                                @if (food.Status == "Pending")
+                                {
+                                    <a class="btn btn-danger" href="/Restaurant/CancelRequest/@food.F_id">Cancel</a>
+                                }
+                                else
+                                {
+                                    @food.Status
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+        <a href="/Restaurant/RestrurentDashBoard" class="btn btn-success">Back</a>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

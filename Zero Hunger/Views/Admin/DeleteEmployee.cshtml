@@ -1,0 +1,44 @@
+﻿@model Zero_Hunger.EF.Employee
+
+@{
+    ViewBag.Title = "DeleteEmployee";
+}
+
+<h2>Delete Employee</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td>@Html.DisplayFor(model => model.E_id)</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>@Html.DisplayFor(model => model.E_name)</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>@Html.DisplayFor(model => model.E_address)</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>@Html.DisplayFor(model => model.E_gender)</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>@Html.DisplayFor(model => model.E_phone)</td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a class="btn btn-success" href="/Admin/AdminDashBoard">Back To DashBoard</a>
+
+</div>
+    }
+</div>

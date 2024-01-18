@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "AdminDashBoard";
+}
+
+<main class="container text-center">
+    <form action="" method="post">
+        <h2 class="mb-4">Admin Dashboard</h2>
+        <h3>All the employee information</h3>
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Phone</th>
+                        <th colspan="2" scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var food in ViewBag.Employee)
+                    {
+                        <tr>
+                            <th scope="row">@food.E_id</th>
+                            <td>@food.E_name</td>
+                            <td>@food.E_address</td>
+                            <td>@food.E_gender</td>
+                            <td>@food.E_phone</td>
+                            <td><a href="/Admin/EditEmployee/@food.E_id" class="btn btn-success">Edit</a></td>
+                            <td><a href="/Admin/DeleteEmployee/@food.E_id" class="btn btn-danger">Delete</a></td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+        <fieldset>
+            <div class="form-group">
+                <a href="/Admin/AddEmployee" class="btn btn-success">Add Employee</a>
+            </div>
+        </fieldset>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                @if (Model != null)
+                {
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Expire Date</th>
+                            <th scope="col">Restaurant Name</th>
+                            <th scope="col">Restaurant Address</th>
+                            <th scope="col">Assign Employee</th>
+                            <th scope="col">Status</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var food in Model)
+                        {
+                            <tr>
+                                <th scope="row">@food.F_id</th>
+                                <td>@food.F_name</td>
+                                <td>@food.F_quantity</td>
+                                <td>@food.ExpireDate</td>
+                                @foreach (var r in ViewBag.restrurent)
+                                {
+                                    if (r.R_id == food.R_id)
+                                    {
+                                        <td>@r.R_name</td>
+                                        <td>@r.R_address</td>
+                                    }
+                                }
+                                <td>
+                                    Employee: <select name="E_id">
+                                        <option selected disabled>Employee</option>
+                                        @foreach (var d in ViewBag.Employee)
+                                        {
+                                            <option value="@d.E_id">@d.E_name </option>
+                                        }
+                                    </select><br />
+                                </td>
+
+                                <td>
+                                    @if (food.Status == "Pending")
+                                    {
+                                        <a class="btn btn-danger" href="/Restaurant/CancelRequestByEmployee/@food.F_id">Cancel</a>
+                                        <a class="btn btn-success" href="/Admin/Order/@food.F_id">Assign</a>
+                                        
+                                    }
+                                    else
+                                    {
+                                        @food.Status
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                }
+            </table>
+        </div>
+    </form>
+
+
+</main>
+
